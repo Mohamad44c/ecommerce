@@ -6,7 +6,6 @@ export const SliderInfo = [
         title: "DECEMBER SALE",
         description: "BLACK FRIDAY DEALS - GET IN STYLE THIS CHRISTMAS!",
         bg: "f5fafd"
-
     },
     {
         id: 2,
@@ -14,16 +13,12 @@ export const SliderInfo = [
         title: "FEATURED CLOTHING",
         description: "DON'T MISS THE WINTER SALE",
         bg: "fcf1ed"
-
     },
     {
         id: 3,
-        img: "https://purepng.com/public/uploads/large/girls-5lh.png",
+        img: "https://purepng.com/public/uploads/large/purepng.com-groomgroommanmarriage-malesuits-1421526895442unogf.png",
         title: "NEWLY IN",
         description: "CHECK OUT THE LATEST TRENDS",
         bg: "fbf0f4"
-
     }
-
-
 ]
