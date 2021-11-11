@@ -12,7 +12,7 @@ export default function Categories() {
         <div>
             <Container>
                 {ProductCategories.map(product => (
-                    <Category product={product} />
+                    <Category product={product} key={product.id} />
                 ))}
             </Container>
         </div>

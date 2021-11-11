@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { ProductCategories } from "../data";
 
 const Container = styled.div`
 ${'' /* same size images */}
@@ -13,7 +12,6 @@ const Image = styled.img`
     height:100%;
     ${'' /* to keep the image from squeezing */}
     object-fit: cover;
-    
 `;
 
 const Info = styled.p`
@@ -35,6 +33,7 @@ const Title = styled.h1`
     margin: 20px;
     letter-spacing: 3px;
 `;
+
 const Button = styled.button`
     border: none;
     padding: 10px;

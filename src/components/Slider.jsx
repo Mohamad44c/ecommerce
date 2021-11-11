@@ -96,7 +96,7 @@ export default function Slider() {
             <Wrapper slideIndex={slideIndex}>
                 {/* slider 1 */}
                 {SliderInfo.map((slider) => (
-                    <Slide bg={slider.bg}>
+                    <Slide bg={slider.bg} key={slider.id}>
                         <ImageContainer>
                             <Image src={slider.img} />
                         </ImageContainer>
