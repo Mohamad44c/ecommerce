@@ -20,6 +20,7 @@ const Left = styled.div`
     display: flex;
     align-items: center;
 `;
+
 const Language = styled.div`
     font-size: 14px;
     cursor: pointer;
@@ -44,7 +45,9 @@ const Center = styled.div`
 
 const Logo = styled.h1`
     font-weight: bold;
+    letter-spacing: 3px;
 `;
+
 const Right = styled.div`
     flex: 1;
     display: flex;
@@ -66,7 +69,7 @@ export default function Navbar() {
                     <Language>EN</Language>
                     <SearchContainer>
                         <Input />
-                        <Search style={{color: "gray", fontSize: 16 }}/>
+                        <Search style={{ color: "gray", fontSize: 16 }} />
                     </SearchContainer>
                 </Left>
                 <Center>
