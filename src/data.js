@@ -22,3 +22,24 @@ export const SliderInfo = [
         bg: "fbf0f4"
     }
 ]
+
+export const ProductCategories = [
+
+    {
+        id: 1,
+        productImg: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.wA1nGOThI0Y-4u_IX2tirAEODm%26pid%3DApi&f=1",
+        title: "SUITS",
+
+    },
+    {
+        id: 2,
+        productImg: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.vCo1UwexM0Sv6hqL3ci3LAHaJd%26pid%3DApi&f=1",
+        title: "CASUAL WEAR"
+    },
+    {
+        id: 3,
+        productImg: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.ho8-b7iV_Vy1nbRzfoCpygHaJQ%26pid%3DApi&f=1",
+        title: "ACTIVEWEAR"
+
+    }
+]
