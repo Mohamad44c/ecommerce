@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Facebook, Instagram, Pinterest, Room, Phone, Email } from "@material-ui/icons";
+import { Link } from "@material-ui/core";
 
 const Container = styled.div`
     display: flex;
@@ -79,7 +80,7 @@ export default function Footer() {
         <Container>
             <Left>
                 <Logo>Matte.</Logo>
-                <Description>Matte is a brand dedicated exclusively to men.<br/>
+                <Description>Matte is a brand dedicated exclusively to men.<br />
                     Our collection of clothing are essentials for a mans wardrobe. </Description>
                 <SocialMediaContainer>
                     <SocialIcon color="3b5999">
@@ -108,9 +109,9 @@ export default function Footer() {
             </Center>
             <Right>
                 <Title>Contact Us</Title>
-                <ContactItem><Room style={{marginRight:"10px"}}/>Downtown Beirut, Lebanon</ContactItem>
-                <ContactItem><Phone style={{marginRight:"10px"}}/>+961 78 80999</ContactItem>
-                <ContactItem><Email style={{marginRight:"10px"}}/>Matte@info.com</ContactItem>
+                <ContactItem><Room style={{ marginRight: "10px" }} />Downtown Beirut, Lebanon</ContactItem>
+                <ContactItem><Phone style={{ marginRight: "10px" }} />+961 78 80999</ContactItem>
+                <ContactItem><Email style={{ marginRight: "10px" }} />Matte@info.com</ContactItem>
             </Right>
         </Container>
     )
