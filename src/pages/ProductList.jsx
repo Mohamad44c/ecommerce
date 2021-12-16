@@ -30,9 +30,7 @@ const SelectOption = styled.select`
     text-align: center;
 `;
 
-const Option = styled.option`
-    
-`;
+const Option = styled.option``;
 
 export default function ProductList() {
     return (

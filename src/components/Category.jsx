@@ -37,7 +37,7 @@ const Title = styled.h1`
 const Button = styled.button`
     border: none;
     padding: 10px;
-    background-color: #FFD523;
+    background-color: #63B4B8;
     letter-spacing: 3px;
     font-weight: bold;
     border-radius: 5%;

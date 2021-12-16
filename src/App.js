@@ -1,10 +1,12 @@
 import Home from "./pages/Home";
 import ProductList from "./pages/ProductList";
-
+import ProductDetail from "./pages/ProductDetail";
 
 function App() {
   return (
-    <ProductList />
+    // <Home />
+    // {/* <ProductList /> */}
+    <ProductDetail />
   );
 }
 
