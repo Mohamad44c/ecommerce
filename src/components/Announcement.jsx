@@ -19,7 +19,7 @@ const Container = styled.div`
 export default function Announcement() {
     return (
         <Container>
-            Free Shipping for purchases over 200,000L.L
+            Free Shipping for purchases over $ 95
         </Container>
     )
 }

@@ -4,10 +4,14 @@ import Navbar from "../components/Navbar";
 import ProductsSection from "../components/ProductsSection";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
+import { mobile } from "../responsive";
 
 const Container = styled.div``;
 
-const CategoryTitle = styled.h1`margin: 20px;`;
+const CategoryTitle = styled.h1`
+    margin: 20px;
+    ${'' /* ${mobile({ margin: "10px" })} */}
+`;
 
 const ContainerFilter = styled.div`
     display: flex;
@@ -16,18 +20,21 @@ const ContainerFilter = styled.div`
 
 const Filter = styled.div`
     margin: 20px;
+    ${mobile({ width: "0px 20px", display: "flex", flexDirection: "column" })}
 `;
 
 const FilterName = styled.span`
     font-size: 20px;
     font-weight: 600;
     margin-right: 20px;
+    ${mobile({ marginRight: "0px" })}
 `;
 
 const SelectOption = styled.select`
     padding: 10px;
     margin-right: 20px;
     text-align: center;
+    ${mobile({ margin: "10px 0px" })}
 `;
 
 const Option = styled.option``;
