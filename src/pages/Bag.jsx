@@ -1,9 +1,17 @@
 import { Add, Remove } from "@material-ui/icons";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
+import { Link } from "react-router-dom";
+import StripeCheckout from "react-stripe-checkout";
+import { useEffect, useState } from "react";
+import { userRequest } from "../requestMethods";
+import { useNavigate } from "react-router-dom";
+// const KEY = process.env.STRIPE_SECRET_KEY;
+const KEY = "pk_test_51KCjJiKViE51e7LCMkSlX1hY3taHJTl3IPAQBIV8bAdm38jSUAkZAd2GtcUClgENOfTBBxp1KFsueblMhSgKEYCo00CmRGKKaj";
 
 const Container = styled.div``;
 
@@ -31,7 +39,7 @@ const TopButton = styled.button`
   cursor: pointer;
   border: ${(props) => props.type === "filled" && "none"};
   background-color: ${(props) =>
-        props.type === "filled" ? "black" : "transparent"};
+    props.type === "filled" ? "black" : "transparent"};
   color: ${(props) => props.type === "filled" && "white"};
 `;
 
@@ -56,6 +64,7 @@ const Info = styled.div`
 const Product = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-top: 15px;
   ${mobile({ flexDirection: "column" })}
 `;
 
@@ -115,9 +124,10 @@ const ProductPrice = styled.div`
 `;
 
 const Hr = styled.hr`
-  background-color: #eee;
+  background-color: #63B4B8;
   border: none;
   height: 1px;
+  margin: 5px;
 `;
 
 const Summary = styled.div`
@@ -153,99 +163,116 @@ const Button = styled.button`
 `;
 
 const Bag = () => {
-    return (
-        <Container>
-            <Navbar />
-            <Announcement />
-            <Wrapper>
-                <Title>YOUR BAG</Title>
-                <Top>
-                    <TopButton>CONTINUE SHOPPING</TopButton>
-                    <TopTexts>
-                        <TopText>Shopping Bag(2)</TopText>
-                        <TopText>Your Wishlist (0)</TopText>
-                    </TopTexts>
-                    <TopButton type="filled">CHECKOUT NOW</TopButton>
-                </Top>
-                <Bottom>
-                    <Info>
-                        <Product>
-                            <ProductDetail>
-                                <Image src="https://s7d9.scene7.com/is/image/JCPenney/DP0326202107034303M?resmode=sharp2&op_sharpen=1&wid=550&hei=550" />
-                                <Details>
-                                    <ProductName>
-                                        <b>Product:</b> LONG SLEEVE CHAMPION
-                                    </ProductName>
-                                    <ProductId>
-                                        <b>ID:</b> 9123843901
-                                    </ProductId>
-                                    <ProductColor color="black" />
-                                    <ProductSize>
-                                        <b>Size:</b> 37.5
-                                    </ProductSize>
-                                </Details>
-                            </ProductDetail>
-                            <PriceDetail>
-                                <ProductAmountContainer>
-                                    <Remove />
-                                    <ProductAmount>2</ProductAmount>
-                                    <Add />
-                                </ProductAmountContainer>
-                                <ProductPrice>$ 30</ProductPrice>
-                            </PriceDetail>
-                        </Product>
-                        <Hr />
-                        <Product>
-                            <ProductDetail>
-                                <Image src="https://s7d9.scene7.com/is/image/JCPenney/DP0805202113024085M?resmode=sharp2&op_sharpen=1&wid=550&hei=550" />
-                                <Details>
-                                    <ProductName>
-                                        <b>Product:</b> GRAY PANTS
-                                    </ProductName>
-                                    <ProductId>
-                                        <b>ID:</b> 8934710313
-                                    </ProductId>
-                                    <ProductColor color="gray" />
-                                    <ProductSize>
-                                        <b>Size:</b> M
-                                    </ProductSize>
-                                </Details>
-                            </ProductDetail>
-                            <PriceDetail>
-                                <ProductAmountContainer>
-                                    <Remove />
-                                    <ProductAmount>1</ProductAmount>
-                                    <Add />
-                                </ProductAmountContainer>
-                                <ProductPrice>$ 20</ProductPrice>
-                            </PriceDetail>
-                        </Product>
-                    </Info>
-                    <Summary>
-                        <SummaryTitle>ORDER SUMMARY</SummaryTitle>
-                        <SummaryItem>
-                            <SummaryItemText>Subtotal</SummaryItemText>
-                            <SummaryItemPrice>$ 80</SummaryItemPrice>
-                        </SummaryItem>
-                        <SummaryItem>
-                            <SummaryItemText>Estimated Shipping</SummaryItemText>
-                            <SummaryItemPrice>$ 5.90</SummaryItemPrice>
-                        </SummaryItem>
-                        <SummaryItem>
-                            <SummaryItemText>Shipping Discount</SummaryItemText>
-                            <SummaryItemPrice>$ -5.90</SummaryItemPrice>
-                        </SummaryItem>
-                        <SummaryItem type="total">
-                            <SummaryItemText>Total</SummaryItemText>
-                            <SummaryItemPrice>$ 80</SummaryItemPrice>
-                        </SummaryItem>
-                        <Button>CHECKOUT NOW</Button>
-                    </Summary>
-                </Bottom>
-            </Wrapper>
-            <Footer />
-        </Container>
-    );
+  const cart = useSelector(state => state.cart);
+  const [stripeToken, setStripeToken] = useState(null);
+  const navigate = useNavigate();
+
+  const onToken = (token) => {
+    setStripeToken(token);
+  }
+
+  useEffect(() => {
+    const request = async () => {
+      try {
+        const response = await userRequest.post("/checkout/payment", {
+          tokenId: stripeToken.id,
+          amount: cart.total * 100,
+        });
+        navigate('/', { data: response.data });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    stripeToken && request();
+  }, [stripeToken, cart.total, navigate]);
+
+  return (
+    <Container>
+      <Navbar />
+      <Announcement />
+      <Wrapper>
+        <Title>YOUR BAG</Title>
+        <Top>
+          <Link to="/products/AllProducts">
+            <TopButton>CONTINUE SHOPPING</TopButton>
+          </Link>
+
+          <TopTexts>
+            <TopText>Shopping Bag({cart.quantity})</TopText>
+            <TopText>Your Wishlist (0)</TopText>
+          </TopTexts>
+          <TopButton type="filled">CHECKOUT NOW</TopButton>
+        </Top>
+        <Bottom>
+          <Info>
+            {/* products */}
+            {cart.products.map(product => (
+
+              <Product>
+                <ProductDetail>
+                  <Image src={product.imgUrl} />
+                  <Details>
+                    <ProductName>
+                      <b>Product:</b> {product.name}
+                    </ProductName>
+                    <ProductId>
+                      <b>ID:</b> {product._id}
+                    </ProductId>
+                    <ProductColor color={product.color} />
+                    <ProductSize>
+                      <b>Size:</b> {product.size}
+                    </ProductSize>
+                  </Details>
+                </ProductDetail>
+                <PriceDetail>
+                  <ProductAmountContainer>
+                    <Remove />
+                    <ProductAmount>{product.quantity}</ProductAmount>
+                    <Add />
+                  </ProductAmountContainer>
+                  <ProductPrice>$ {product.price * product.quantity}</ProductPrice>
+                </PriceDetail>
+              </Product>
+            ))}
+            <Hr />
+
+            {/* products */}
+          </Info>
+          <Summary>
+            <SummaryTitle>ORDER SUMMARY</SummaryTitle>
+            <SummaryItem>
+              <SummaryItemText>Subtotal</SummaryItemText>
+              <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
+            </SummaryItem>
+            <SummaryItem>
+              <SummaryItemText>Estimated Shipping</SummaryItemText>
+              <SummaryItemPrice>$ 12</SummaryItemPrice>
+            </SummaryItem>
+            <SummaryItem>
+              <SummaryItemText>Shipping Discount</SummaryItemText>
+              <SummaryItemPrice>$ -12</SummaryItemPrice>
+            </SummaryItem>
+            <SummaryItem type="total">
+              <SummaryItemText>Total</SummaryItemText>
+              <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
+            </SummaryItem>
+            <StripeCheckout name="Matte."
+              image="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.wdFyXj-w_1n2FTLQ_4iEQgAAAA%26pid%3DApi&f=1"
+              shippingAddress
+              billingAddress
+              description={`Your total is $${cart.total}`}
+              amount={cart.total * 100}
+              token={onToken}
+              stripeKey={KEY}
+            >
+              <Button>CHECKOUT NOW</Button></StripeCheckout>
+
+          </Summary>
+        </Bottom>
+      </Wrapper>
+      <Footer />
+    </Container>
+  );
 };
 
 export default Bag;

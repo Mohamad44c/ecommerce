@@ -1,8 +1,9 @@
 import { KeyboardArrowLeftOutlined, KeyboardArrowRightOutlined } from "@material-ui/icons";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { SliderInfo } from "../data";
-import {mobile} from "../responsive";
+import { mobile } from "../responsive";
 
 const Container = styled.div`
     width: 100%;
@@ -105,7 +106,11 @@ export default function Slider() {
                         <InfoContainer>
                             <Title>{slider.title}</Title>
                             <Description>{slider.description}</Description>
-                            <Button>SHOP NOW</Button>
+
+                            <Link to="/products/AllProducts" style={{ textDecoration: 'none', color: "black" }}>
+                                <Button>SHOP NOW</Button>
+                            </Link>
+
                         </InfoContainer>
                     </Slide>
                 ))}

@@ -4,11 +4,8 @@ import { mobile } from "../responsive";
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(
-      rgba(255, 255, 255, 0.5),
-      rgba(255, 255, 255, 0.5)
-    ),
-    url("https://images.pexels.com/photos/6984650/pexels-photo-6984650.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940")
+  background: 
+    url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.KEJbImn8xOOM29K-VJ2YvQHaFO%26pid%3DApi&f=1")
       center;
   background-size: cover;
   display: flex;
@@ -58,20 +55,20 @@ const Link = styled.a`
 `;
 
 const Login = () => {
-    return (
-        <Container>
-            <Wrapper>
-                <Title>SIGN IN</Title>
-                <Form>
-                    <Input placeholder="Username" />
-                    <Input placeholder="Password" />
-                    <Button>LOGIN</Button>
-                    <Link>FORGOT PASSWORD?</Link>
-                    <Link>CREATE A NEW ACCOUNT</Link>
-                </Form>
-            </Wrapper>
-        </Container>
-    );
+  return (
+    <Container>
+      <Wrapper>
+        <Title>SIGN IN</Title>
+        <Form>
+          <Input placeholder="Username" />
+          <Input placeholder="Password" />
+          <Button>LOGIN</Button>
+          <Link>FORGOT PASSWORD?</Link>
+          <Link>CREATE A NEW ACCOUNT</Link>
+        </Form>
+      </Wrapper>
+    </Container>
+  );
 };
 
 export default Login;

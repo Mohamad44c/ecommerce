@@ -3,8 +3,8 @@ export const SliderInfo = [
     {
         id: 1,
         img: "https://purepng.com/public/uploads/large/purepng.com-suitclothingsuitfashion-people-men-dress-black-cloth-suit-vest-coat-waistcoat-631522327063pe2oh.png",
-        title: "DECEMBER SALE",
-        description: "BLACK FRIDAY DEALS - GET IN STYLE THIS CHRISTMAS!",
+        title: "NEW YEARS SALE",
+        description: "NEW YEAR DEALS - GET IN STYLE THIS NEW YEAR!",
         bg: "f5fafd"
     },
     {
@@ -29,18 +29,20 @@ export const ProductCategories = [
         id: 1,
         productImg: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fae01.alicdn.com%2Fkf%2FHTB1vA37KFXXXXaIXFXXxh4dFXXXz%2F2016-new-custom-made-blue-male-designer-suits-men-and-men-suit-3-suit-jacket-pants.jpeg&f=1&nofb=1",
         title: "SUITS",
+        category: "SUITS"
 
     },
     {
         id: 2,
         productImg: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.hRSLO0xDk2dp7ljVnxpTAAHaHa%26pid%3DApi&f=1",
-        title: "ACTIVEWEAR"
+        title: "ACTIVEWEAR",
+        category: "ACTIVEWEAR"
     },
     {
         id: 3,
         productImg: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.kxiHtmSlaGn0LdsdViznTQHaLG%26pid%3DApi&f=1",
-        title: "CASUAL WEAR"
-
+        title: "CASUAL",
+        category: "CASUAL"
     }
 ];
 

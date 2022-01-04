@@ -1,3 +1,5 @@
+import { useLocation } from "react-router";
+import { useState } from "react";
 import styled from "styled-components";
 import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
@@ -40,40 +42,53 @@ const SelectOption = styled.select`
 const Option = styled.option``;
 
 export default function ProductList() {
+    const location = useLocation();
+    const category = location.pathname.split("/")[2];
+    const [filters, setFilters] = useState({});
+    const [sort, setSort] = useState("Latest");
+
+    const handleFilters = (e) => {
+        // add toLowerCase to value if you named them in lowercase in the DB
+        const value = e.target.value;
+        setFilters({
+            ...filters,
+            [e.target.name]: value,
+        });
+    }; 
     return (
         <Container>
             <Navbar />
             <Announcement />
-            <CategoryTitle>Suits</CategoryTitle>
+            <CategoryTitle>{category}</CategoryTitle>
             <ContainerFilter>
                 <Filter>
                     <FilterName>Filter Products:</FilterName>
-                    <SelectOption>
-                        <Option disabled selected>Color</Option>
-                        <Option>Black</Option>
-                        <Option>White</Option>
-                        <Option>Navy Blue</Option>
-                        <Option>Dark Gray</Option>
+                    <SelectOption name="color" onChange={handleFilters}>
+                        <Option disabled >Color</Option>
+                        <Option>black</Option>
+                        <Option>white</Option>
+                        <Option>navyblue</Option>
+                        <Option>gray</Option>
                     </SelectOption>
-                    <SelectOption>
-                        <Option disabled selected>Size</Option>
-                        <Option>X-Small</Option>
-                        <Option>Small</Option>
-                        <Option>Medium</Option>
-                        <Option>Large</Option>
-                        <Option>X-Large</Option>
+                    <SelectOption name="size" onChange={handleFilters}>
+                        <Option disabled >Size</Option>
+                        <Option>XS</Option>
+                        <Option>S</Option>
+                        <Option>M</Option>
+                        <Option>L</Option>
+                        <Option>XL</Option>
                     </SelectOption>
                 </Filter>
                 <Filter>
                     <FilterName>Sort Products:</FilterName>
-                    <SelectOption>
-                        <Option selected>Latest</Option>
-                        <Option>Lowest Price</Option>
-                        <Option>Highest Price</Option>
+                    <SelectOption onChange={(e) => setSort(e.target.value)}>
+                        <Option value="Latest">Latest</Option>
+                        <Option value="Lowest to Highest">Lowest to Highest</Option>
+                        <Option value="Highest to Lowest">Highest to Lowest</Option>
                     </SelectOption>
                 </Filter>
             </ContainerFilter>
-            <ProductsSection />
+            <ProductsSection category={category} filters={filters} sort={sort} />
             <Newsletter />
             <Footer />
         </Container>

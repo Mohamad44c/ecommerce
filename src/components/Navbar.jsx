@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { Search, LocalMallOutlined } from "@material-ui/icons";
 import { Badge } from "@material-ui/core";
 import { mobile } from "../responsive";
-
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 const Container = styled.div`
     height: 60px;
     ${mobile({ height: "50px" })}
@@ -70,31 +71,42 @@ const MenuItem = styled.div`
 `;
 
 export default function Navbar() {
+    const bagQuantity = useSelector(state => state.cart.quantity);
+    // console.log(bagQuantity);
     return (
         <Container>
             <Wrapper>
                 <Left>
                     <Language>EN</Language>
                     <SearchContainer>
-                        <Input placeholder="Search"/>
+                        <Input placeholder="Search" />
                         <Search style={{ color: "gray", fontSize: 16 }} />
                     </SearchContainer>
                 </Left>
                 <Center>
-                    <Logo>Matte.</Logo>
+                    <Link to="/" style={{ textDecoration: 'none', color: "black" }}>
+                        <Logo>Matte.</Logo>
+                    </Link>
                 </Center>
                 <Right>
                     <MenuItem>
-                        REGISTER
+                        <Link to="/register" style={{ textDecoration: 'none', color: "black" }}>
+                            REGISTER
+                        </Link>
                     </MenuItem>
+
                     <MenuItem>
-                        SIGN IN
+                        <Link to="/login" style={{ textDecoration: 'none', color: "black" }}>
+                            SIGN IN
+                        </Link>
                     </MenuItem>
-                    <MenuItem>
-                        <Badge badgeContent={4} color="primary">
-                            <LocalMallOutlined />
-                        </Badge>
-                    </MenuItem>
+                    <Link to="/bag">
+                        <MenuItem>
+                            <Badge badgeContent={bagQuantity} color="primary">
+                                <LocalMallOutlined />
+                            </Badge>
+                        </MenuItem>
+                    </Link>
                 </Right>
             </Wrapper>
         </Container>

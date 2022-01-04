@@ -5,6 +5,11 @@ import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
 import { Add, Remove } from "@material-ui/icons";
 import { mobile } from "../responsive";
+import { useLocation } from "react-router";
+import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { publicRequest } from "../requestMethods";
+import { addProduct } from "../redux/bagRedux";
 
 const Container = styled.div``;
 
@@ -115,56 +120,87 @@ const Button = styled.button`
 `;
 
 function ProductDetail() {
-    return (
-        <Container>
-            <Navbar />
-            <Announcement />
-            <Wrapper>
-                <ImageContainer>
-                    <Image src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fae01.alicdn.com%2Fkf%2FHTB1vA37KFXXXXaIXFXXxh4dFXXXz%2F2016-new-custom-made-blue-male-designer-suits-men-and-men-suit-3-suit-jacket-pants.jpeg&f=1&nofb=1" />
-                </ImageContainer>
-                <InfoContainer>
-                    <Title>The Grooms Suit</Title>
-                    <Description>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                        venenatis, dolor in finibus malesuada, lectus ipsum porta nunc, at
-                        iaculis arcu nisi sed mauris. Nulla fermentum vestibulum ex, eget
-                        tristique tortor pretium ut. Curabitur elit justo, consequat id
-                        condimentum ac, volutpat ornare.
-                    </Description>
-                    <Price>$ 320</Price>
-                    <FilterContainer>
-                        <Filter>
-                            <FilterTitle>Color</FilterTitle>
-                            <FilterColor color="black" />
-                            <FilterColor color="darkblue" />
-                            <FilterColor color="gray" />
-                        </Filter>
-                        <Filter>
-                            <FilterTitle>Size</FilterTitle>
-                            <FilterSize>
-                                <FilterSizeOption>XS</FilterSizeOption>
-                                <FilterSizeOption>S</FilterSizeOption>
-                                <FilterSizeOption>M</FilterSizeOption>
-                                <FilterSizeOption>L</FilterSizeOption>
-                                <FilterSizeOption>XL</FilterSizeOption>
-                            </FilterSize>
-                        </Filter>
-                    </FilterContainer>
-                    <AddContainer>
-                        <AmountContainer>
-                            <Remove />
-                            <Amount>1</Amount>
-                            <Add />
-                        </AmountContainer>
-                        <Button>ADD TO CART</Button>
-                    </AddContainer>
-                </InfoContainer>
-            </Wrapper>
-            <Newsletter />
-            <Footer />
-        </Container>
+  const location = useLocation();
+  const productId = location.pathname.split("/")[2];
+  const [product, setProduct] = useState({});
+
+  const [quantity, setQuantity] = useState(1);
+  const [color, setColor] = useState("");
+  const [size, setSize] = useState("");
+  const dispatch = useDispatch();
+
+  // display product detail page onclick by taking the baseurl and productId (unique)
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await publicRequest.get("/products/find/" + productId);
+        setProduct(res.data);
+      } catch (error) { console.log(error); }
+    };
+    getProduct();
+  }, [productId]);
+
+  // increment and decrement quantity
+  const modifyQuantity = (type) => {
+    if (type === "decrease") {
+      quantity > 1 && setQuantity(quantity - 1);
+    } else {
+      setQuantity(quantity + 1);
+    }
+  };
+
+  const handleClick = () => {
+    // allows us to dispatch our actions without connecting 
+    // our component with connect method.
+    dispatch(
+      addProduct({ ...product, quantity, color, size, price: product.price * quantity })
     );
+  };
+
+  return (
+    <Container>
+      <Navbar />
+      <Announcement />
+      <Wrapper>
+        <ImageContainer>
+          <Image src={product.imgUrl} />
+        </ImageContainer>
+        <InfoContainer>
+          <Title>{product.name}</Title>
+          <Description>
+            {product.description}
+          </Description>
+          <Price>$  {product.price}</Price>
+          <FilterContainer>
+            <Filter>
+              <FilterTitle>Color</FilterTitle>
+              {product.color?.map((c) => (
+                <FilterColor color={c} key={c} onClick={() => setColor(c)} />
+              ))}
+            </Filter>
+            <Filter>
+              <FilterTitle>Size</FilterTitle>
+              <FilterSize onChange={(e) => setSize(e.target.value)}>
+                {product.size?.map((s) => (
+                  <FilterSizeOption key={s}>{s}</FilterSizeOption>
+                ))}
+              </FilterSize>
+            </Filter>
+          </FilterContainer>
+          <AddContainer>
+            <AmountContainer>
+              <Remove onClick={() => { modifyQuantity("decrease") }} />
+              <Amount>{quantity}</Amount>
+              <Add onClick={() => { modifyQuantity("increase") }} />
+            </AmountContainer>
+            <Button onClick={handleClick}>ADD TO BAG</Button>
+          </AddContainer>
+        </InfoContainer>
+      </Wrapper>
+      <Newsletter />
+      <Footer />
+    </Container>
+  );
 }
 
 export default ProductDetail

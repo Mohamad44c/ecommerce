@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import {mobile} from "../responsive";
 
@@ -8,6 +9,7 @@ ${'' /* same size images */}
     height: 70vh;
     position: relative;
 `;
+
 const Image = styled.img`
     width:100%;
     height:100%;
@@ -47,12 +49,14 @@ const Button = styled.button`
 `;
 export default function Category({ product }) {
     return (
-        <Container>
+        <Container> 
+            <Link to={`/products/${product.category}`}>
             <Image src={product.productImg} />
             <Info>
                 <Title>{product.title}</Title>
                 <Button>SHOP NOW</Button>
             </Info>
+            </Link>
         </Container>
     )
 }
