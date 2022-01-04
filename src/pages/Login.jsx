@@ -1,12 +1,15 @@
+import { useState } from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
-
+import { Link } from "react-router-dom";
+import { login } from "../redux/callApi";
+import { useDispatch, useSelector } from "react-redux";
+// 1F4068
+// 206A5D
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
-  background: 
-    url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.KEJbImn8xOOM29K-VJ2YvQHaFO%26pid%3DApi&f=1")
-      center;
+  background: #1F4068;
   background-size: cover;
   display: flex;
   align-items: center;
@@ -37,34 +40,57 @@ const Input = styled.input`
   padding: 10px;
 `;
 
-const Button = styled.button`
+const Button = styled.button` 
   width: 40%;
   border: none;
   padding: 15px 20px;
-  background-color: teal;
+  background-color: #1F4068;
   color: white;
   cursor: pointer;
   margin-bottom: 10px;
+  &:disabled{
+    color: gray;
+    cursor: not-allowed;
+  }
 `;
 
-const Link = styled.a`
+const LinkStyle = styled.a`
   margin: 5px 0px;
   font-size: 12px;
   text-decoration: underline;
   cursor: pointer;
 `;
+const LoginError = styled.span`
+  color: red;
+`;
 
 const Login = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const { isFetching, error } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  const checkLogin = (e) => {
+    e.preventDefault();
+    login(dispatch, { username, password });
+  }
   return (
     <Container>
       <Wrapper>
         <Title>SIGN IN</Title>
         <Form>
-          <Input placeholder="Username" />
-          <Input placeholder="Password" />
-          <Button>LOGIN</Button>
-          <Link>FORGOT PASSWORD?</Link>
-          <Link>CREATE A NEW ACCOUNT</Link>
+          <Input placeholder="Username" onChange={(e) => setUsername(e.target.value)} />
+          <Input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+          <Button onClick={checkLogin} disabled={isFetching}>LOGIN</Button>
+          {error && <LoginError>Something has gone wrong please refresh and try again</LoginError>}
+          <Link to="/" style={{ textDecoration: 'none', color: "black" }}>
+            <LinkStyle>FORGOT PASSWORD?</LinkStyle>
+          </Link>
+
+          <Link to="/register" style={{ textDecoration: 'none', color: "black" }}>
+            <LinkStyle>CREATE A NEW ACCOUNT</LinkStyle>
+          </Link>
+
         </Form>
       </Wrapper>
     </Container>

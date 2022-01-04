@@ -4,7 +4,7 @@ import { mobile } from "../responsive";
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
-  background: #CCD1E4;
+  background: #206A5D;
   background-size: cover;
   display: flex;
   align-items: center;
@@ -44,7 +44,7 @@ const Button = styled.button`
   width: 40%;
   border: none;
   padding: 15px 20px;
-  background-color: teal;
+  background-color: #206A5D;
   color: white;
   cursor: pointer;
 `;
@@ -59,8 +59,8 @@ const Register = () => {
           <Input placeholder="Last Name" />
           <Input placeholder="Username" />
           <Input placeholder="Email" />
-          <Input placeholder="Password" />
-          <Input placeholder="Confirm Password" />
+          <Input type="password" placeholder="Password" />
+          <Input type="password" placeholder="Confirm Password" />
           <Agreement>
             By creating an account, I consent to the processing of my personal
             data in accordance with the <b>PRIVACY POLICY</b>

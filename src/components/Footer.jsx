@@ -101,13 +101,13 @@ export default function Footer() {
                 <Title>Customer Service</Title>
                 <List>
                     <ListItem>Home</ListItem>
-                    <ListItem>Cart</ListItem>
+                    <ListItem>My Bag</ListItem>
                     <ListItem>Mens Fashion</ListItem>
                     <ListItem>My Account</ListItem>
                     <ListItem>Track My Order</ListItem>
                     <ListItem>Wishlist</ListItem>
-                    <ListItem>Wishlist</ListItem>
                     <ListItem>Return Policy</ListItem>
+                    <ListItem>Terms & Conditions</ListItem>
                 </List>
             </Center>
             <Right>

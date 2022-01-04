@@ -97,7 +97,7 @@ export default function Navbar() {
 
                     <MenuItem>
                         <Link to="/login" style={{ textDecoration: 'none', color: "black" }}>
-                            SIGN IN
+                            LOGIN
                         </Link>
                     </MenuItem>
                     <Link to="/bag">
